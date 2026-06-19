@@ -9,6 +9,9 @@ import SportsKabaddiTwoToneIcon from '@mui/icons-material/SportsKabaddiTwoTone';
 import PowerOffTwoToneIcon from '@mui/icons-material/PowerOffTwoTone';
 import PersonOffTwoToneIcon from '@mui/icons-material/PersonOffTwoTone';
 import TipsAndUpdatesTwoToneIcon from '@mui/icons-material/TipsAndUpdatesTwoTone';
+import RocketTwoToneIcon from '@mui/icons-material/RocketTwoTone'
+import Tooltip from '@mui/material/Tooltip';
+
 import { PulsingDot } from '../shared/SharedUI';
 
 
@@ -115,6 +118,16 @@ function Home() {
           </div>
 
 
+          <div className="flex justify-center mb-8">
+            <Tooltip title="Beam me up, Scotty!">
+              <button
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                className="cursor-pointer hover:opacity-80 transition-opacity"
+              >
+                <RocketTwoToneIcon className='dark:text-red-500' fontSize='large' />
+              </button>
+            </Tooltip>
+          </div>
 
           <footer className="pt-8 mt-4  dark:border-white/50 border-t flex justify-between items-center flex-wrap gap-4">
             <span className="font-mono-custom text-[10px] dark:text-white/22">© 2025 - { new Date().getFullYear()} CROWDSOURCE · COMMUNITY SECURITY PLATFORM</span>
