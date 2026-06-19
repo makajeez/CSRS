@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark, .dark *));
+
+/* @theme {
+  
+  --color-canvas: #ffffff;
+  --color-surface: #f9fafb;
+  --color-txt-main: #111827;
+  --color-txt-muted: #4b5563;
+  --color-border-main: #e5e7eb;
+} */
+
+/*@layer theme {
+  :root {
+   
+    @variant dark {
+      --color-canvas: #111213;
+      --color-surface: #1a1b1d;
+      --color-txt-main: #f9fafb;
+      --color-txt-muted: #9ca3af;
+      --color-border-main: #2d3139;
+    }
+  }
+} */
