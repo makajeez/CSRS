@@ -34,7 +34,7 @@ function Navbar() {
     :
       <NavLink to="/report">
         <span  className="font-mono-custom text-[10px] bg-black/20 dark:bg-red-500/20 dark:text-red-500 border dark:border-red-500/35 px-3 py-1 rounded-full tracking-[0.08em]">
-          LIVE SYSTEM
+          SUBMIT REPORT
         </span>
       </NavLink>
     }
