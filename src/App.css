@@ -2,6 +2,16 @@
 
 @custom-variant dark (&:is(.dark, .dark *));
 
+body {
+  margin: 10px;
+}
+
+.toggle-theme {
+  position: fixed;
+  top: 80px;
+  right: 10px;
+}
+
 /* @theme {
   
   --color-canvas: #ffffff;
