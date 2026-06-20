@@ -160,6 +160,7 @@ export default function Report(): JSX.Element {
   const [updates, setUpdates] = useState(true);
   const [submitted, setSubmitted] = useState(false);
   const [refNo, setRefNo] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const STATES = getStates().map((s) => s.state).sort();
 
@@ -209,7 +210,9 @@ export default function Report(): JSX.Element {
 
   const setAddress = async (coords: { lat: number; long: number }) => {
     const { lat, long } = coords;
-    const GMapApiKey = '' ;
+    const GMapApiKey = import.meta.env.VITE_GMAP_API_URL;
+    console.log(GMapApiKey);
+    setLoading(true);
     const response = await fetch(
       `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=${GMapApiKey}`
     );
@@ -228,6 +231,7 @@ export default function Report(): JSX.Element {
   };
 
   const invokeGPS = () => {
+    setLoading(true);
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const locData: LocData = {
@@ -236,8 +240,12 @@ export default function Report(): JSX.Element {
         };
         // setDateTime(locData.timestamp);
         setAddress(locData.coords);
+        setLoading(false);
       },
-      (err) => console.error(err)
+      (err) => {
+        console.error(err);
+        setLoading(false);
+      }
     );
   };
 
@@ -318,8 +326,17 @@ export default function Report(): JSX.Element {
           onClick={invokeGPS}
           className="flex items-center gap-[5px] px-4 py-[9px] rounded-lg border bg-white/5 border-white/50 dark:border-white/12 dark:bg-[#1a1a18] text-[11px] font-bold dark:text-white/55 dark:hover:text-white/80 dark:hover:border-white/25 transition-all cursor-pointer whitespace-nowrap h-10"
         >
-          <PinDropTwoTone />
-          Use GPS
+         {!loading ? (
+            <>
+              <PinDropTwoTone />
+              Use GPS
+            </>
+          ) : (
+            <span className="flex items-center gap-2">
+              <span className="h-4 w-4 rounded-full border-2 border-white/30 border-t-white animate-spin" />
+              Locating...
+            </span>
+          )}
         </button>
       </div>
       <div className="flex gap-2 mb-3">
