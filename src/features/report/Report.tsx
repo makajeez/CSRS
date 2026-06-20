@@ -157,12 +157,12 @@ export default function Report(): JSX.Element {
   const [threat, setThreat] = useState(0);
   const [sev, setSev] = useState("low");
   const [submitted, setSubmitted] = useState(false);
-  const [refNo, setRefNo] = useState("");
+  // const [refNo, setRefNo] = useState("");
   const [loading, setLoading] = useState(false);
 
   const STATES = getStates().map((s) => s.state).sort();
 
-  const [form, setForm] = useState<FormState>({
+  const getInitialFormState = (): FormState => ({
     threatCategory: 0,
     severityLevel: "low",
     address: "",
@@ -179,8 +179,18 @@ export default function Report(): JSX.Element {
     update: true,
   });
 
+  const [form, setForm] = useState<FormState>(getInitialFormState());
+
   const [mediaFile, setMediaFile] = useState<File | null>(null);
   const [mediaPreview, setMediaPreview] = useState<string | null>(null);
+
+  const resetForm = () => {
+    setThreat(0);
+    setSev("low");
+    setForm(getInitialFormState());
+    setMediaFile(null);
+    setMediaPreview(null);
+  };
 
   const handleMediaChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] ?? null;
@@ -288,10 +298,11 @@ export default function Report(): JSX.Element {
   const handleBack = () => setActiveStep((s) => s - 1);
 
   function handleSubmit() {
-    const year = new Date().getFullYear();
-    const ref = `CS-${year}-` + String(Math.floor(10000 + Math.random() * 90000));
-    setRefNo(ref);
+    // const year = new Date().getFullYear();
+    // const ref = `CS-${year}-` + String(Math.floor(10000 + Math.random() * 90000));
+    // setRefNo(ref);
     setSubmitted(true);
+    resetForm();
   }
 
   const toggleSettings: ToggleSetting[] = [
@@ -580,23 +591,6 @@ export default function Report(): JSX.Element {
 
       <div className="dark:text-[#f5f4ef] min-h-screen">
         <div className="max-w-3xl mx-auto pb-16">
-
-          {/* HEADER */}
-          <div className="my-7">
-            <div className="flex items-center gap-2 mb-3">
-              <PulsingDot color="bg-black dark:bg-red-500" />
-              <span className="font-mono text-[9px] tracking-[0.12em] text-black dark:text-red-500 uppercase">
-                Submit incident report
-              </span>
-            </div>
-            <h1 className="text-[1.8rem] font-extrabold tracking-[-0.04em] leading-[1.1] mb-2">
-              What did you witness?
-            </h1>
-            <p className="text-[13px] dark:text-white/45 leading-[1.6]">
-              Your report is end-to-end encrypted. Location data is only shared with verified response teams.
-            </p>
-          </div>
-
           {submitted ? (
             <div className="text-center py-16">
               <div className="w-16 h-16 rounded-full bg-teal-500/10 flex items-center justify-center mx-auto mb-5 text-teal-500">
@@ -607,11 +601,11 @@ export default function Report(): JSX.Element {
                 Your report has been encrypted and forwarded to verified response units. You will receive a status update within 15 minutes.
               </p>
               <span className="font-mono text-[11px] dark:bg-[#111110] border dark:border-white/8 rounded-lg px-5 py-2 inline-block mb-6">
-                {refNo}
+                {/* {refNo} */}
               </span>
               <br />
               <button
-                onClick={() => { setSubmitted(false); setActiveStep(0); }}
+                onClick={() => { setSubmitted(false); setActiveStep(0); resetForm(); }}
                 className="bg-red-500 hover:bg-red-600 active:scale-[0.98] text-white font-extrabold text-[14px] tracking-[-0.02em] px-8 py-3.25 rounded-lg border-none cursor-pointer transition-all"
               >
                 Submit another report
@@ -620,30 +614,47 @@ export default function Report(): JSX.Element {
                 REPORT ANONYMISED · REFERENCE SAVED LOCALLY
               </p>
             </div>
-          ) : (
-            <Stepper activeStep={activeStep} orientation="vertical" className="report-stepper">
-              {STEP_LABELS.map((label, index) => (
-                <Step key={label}>
-                  <StepLabel>{label}</StepLabel>
-                  <StepContent>
-                    <div className="pt-2">
-                      {stepContent[index]}
-                      <StepNav
-                        step={index}
-                        total={STEP_LABELS.length}
-                        onBack={handleBack}
-                        onNext={handleNext}
-                      />
-                      {index === STEP_LABELS.length - 1 && (
-                        <p className="font-mono text-[9px] dark:text-white/25 mt-3 tracking-[0.04em]">
-                          END-TO-END ENCRYPTED · YOUR IDENTITY IS PROTECTED
-                        </p>
-                      )}
-                    </div>
-                  </StepContent>
-                </Step>
-              ))}
-            </Stepper>
+          ) : 
+          (
+            <>
+              <div className="my-7">
+                <div className="flex items-center gap-2 mb-3">
+                  <PulsingDot color="bg-black dark:bg-red-500" />
+                  <span className="font-mono text-[9px] tracking-[0.12em] text-black dark:text-red-500 uppercase">
+                    Submit incident report
+                  </span>
+                </div>
+                <h1 className="text-[1.8rem] font-extrabold tracking-[-0.04em] leading-[1.1] mb-2">
+                  What did you witness?
+                </h1>
+                <p className="text-[13px] dark:text-white/45 leading-[1.6]">
+                  Your report is end-to-end encrypted. Location data is only shared with verified response teams.
+                </p>
+              </div>
+              <Stepper activeStep={activeStep} orientation="vertical" className="report-stepper">
+                {STEP_LABELS.map((label, index) => (
+                  <Step key={label}>
+                    <StepLabel>{label}</StepLabel>
+                    <StepContent>
+                      <div className="pt-2">
+                        {stepContent[index]}
+                        <StepNav
+                          step={index}
+                          total={STEP_LABELS.length}
+                          onBack={handleBack}
+                          onNext={handleNext}
+                        />
+                        {index === STEP_LABELS.length - 1 && (
+                          <p className="font-mono text-[9px] dark:text-white/25 mt-3 tracking-[0.04em]">
+                            END-TO-END ENCRYPTED · YOUR IDENTITY IS PROTECTED
+                          </p>
+                        )}
+                      </div>
+                    </StepContent>
+                  </Step>
+                ))}
+              </Stepper>
+            </>
           )}
         </div>
       </div>
