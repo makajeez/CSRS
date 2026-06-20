@@ -7,6 +7,7 @@ import PowerOffTwoToneIcon from '@mui/icons-material/PowerOffTwoTone';
 import PersonOffTwoToneIcon from '@mui/icons-material/PersonOffTwoTone';
 import TipsAndUpdatesTwoToneIcon from '@mui/icons-material/TipsAndUpdatesTwoTone';
 import ImageTwoToneIcon from '@mui/icons-material/ImageTwoTone';
+import TimerTwoToneIcon from '@mui/icons-material/TimerTwoTone'
 
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
@@ -16,19 +17,16 @@ import StepContent from '@mui/material/StepContent';
 import { getLgas, getStates } from "ng-states-core";
 import { PulsingDot } from '../shared/SharedUI';
 
-// ── Icons ─────────────────────────────────────────────────────────────────────
 const IconCheck = () => (
   <svg viewBox="0 0 24 24" className="w-7 h-7 fill-current">
     <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
   </svg>
 );
 
-// ── Types ─────────────────────────────────────────────────────────────────────
 interface LocData {
   coords: { lat: number; long: number; accuracy?: number };
   timestamp: number;
 }
-
 interface FormState {
   threatCategory: number;
   severityLevel: string;
@@ -59,14 +57,13 @@ interface SevLevel {
   selClass: string;
 }
 
-// ── Constants ─────────────────────────────────────────────────────────────────
 const THREAT_TYPES = [
-  { Icon: TheaterComedyTwoTone,       name: "Armed robbery",       sub: "WEAPONS · THEFT",   iconClass: "bg-white/10 text-black/90 dark:text-red-500 dark:bg-red-500/10" },
-  { Icon: PsychologyAltTwoToneIcon,   name: "Suspicious activity", sub: "SURVEILLANCE",       iconClass: "bg-white/10 text-black/90 dark:text-amber-400 dark:bg-amber-400/10" },
-  { Icon: SportsKabaddiTwoToneIcon,   name: "Civil unrest",        sub: "CROWD · PROTEST",   iconClass: "bg-white/10 text-black/90 dark:text-red-500 dark:bg-blue-400/10" },
-  { Icon: PowerOffTwoToneIcon,        name: "Infrastructure",      sub: "ROAD · UTILITY",    iconClass: "bg-white/10 text-black/90 dark:text-blue-400 dark:bg-teal-500/10" },
-  { Icon: PersonOffTwoToneIcon,       name: "Missing person",      sub: "ABDUCTION · LOST",  iconClass: "bg-white/10 text-black/90 dark:text-red-500 dark:bg-teal-500/10" },
-  { Icon: TipsAndUpdatesTwoToneIcon,  name: "Pre-emptive intel",   sub: "EARLY WARNING",     iconClass: "bg-white/10 text-black/90 dark:text-amber-400 dark:bg-amber-400/10" },
+  { Icon: TheaterComedyTwoTone,       name: "Armed robbery",       sub: "WEAPONS · THEFT" },
+  { Icon: PsychologyAltTwoToneIcon,   name: "Suspicious activity", sub: "SURVEILLANCE" },
+  { Icon: SportsKabaddiTwoToneIcon,   name: "Civil unrest",        sub: "CROWD · PROTEST" },
+  { Icon: PowerOffTwoToneIcon,        name: "Infrastructure",      sub: "ROAD · UTILITY" },
+  { Icon: PersonOffTwoToneIcon,       name: "Missing person",      sub: "ABDUCTION · LOST" },
+  { Icon: TipsAndUpdatesTwoToneIcon,  name: "Pre-emptive intel",   sub: "EARLY WARNING" },
 ];
 
 const SEV_LEVELS: SevLevel[] = [
@@ -78,11 +75,8 @@ const SEV_LEVELS: SevLevel[] = [
 
 const STEP_LABELS = ["01 CLASSIFY", "02 LOCATE", "03 DETAIL", "04 SUBMIT"];
 
-// ── Shared input class ────────────────────────────────────────────────────────
-const inputCls =
-  "w-full border bg-white/5 border-white/50 dark:bg-[#1a1a18] dark:border-white/[0.08] rounded-lg px-3 py-[9px] text-[13px] dark:text-[#f5f4ef] outline-none focus:border-white/20 transition-colors";
-
-// ── Sub-components ────────────────────────────────────────────────────────────
+const inputCls = "w-full border bg-white/5 border-white/50 dark:bg-[#1a1a18] dark:border-white/[0.08] rounded-lg px-3 py-[9px] text-[13px] dark:text-[#f5f4ef] outline-none focus:border-white/20 transition-colors";
+  
 const Toggle: FC<{ on: boolean; onToggle: () => void }> = ({ on, onToggle }) => (
   <button
     onClick={onToggle}
@@ -126,7 +120,7 @@ const Field: FC<{ label?: string; children: ReactNode; className?: string }> = (
   </div>
 );
 
-// ── Step nav buttons ──────────────────────────────────────────────────────────
+
 const StepNav: FC<{
   step: number;
   total: number;
@@ -140,7 +134,7 @@ const StepNav: FC<{
         onClick={onBack}
         className="px-5 py-2 rounded-lg border border-white/12 bg-[#1a1a18] text-white/55 text-[13px] font-bold hover:text-white/80 hover:border-white/25 transition-all cursor-pointer"
       >
-        ← Back
+         Back
       </button>
     )}
     <button
@@ -151,7 +145,7 @@ const StepNav: FC<{
           : "bg-black/80 dark:bg-white/10 hover:bg-black dark:hover:bg-white/15 text-white"
       }`}
     >
-      {nextLabel ?? (step === total - 1 ? "Submit report →" : "Continue →")}
+      {nextLabel ?? (step === total - 1 ? "Submit report " : "Continue ")}
     </button>
   </div>
 );
@@ -201,12 +195,11 @@ export default function Report(): JSX.Element {
 
   const LGAS = getLgas(`${form.state}`).sort();
 
-  const setField =
-    (key: keyof FormState) =>
+  const setField = (key: keyof FormState, value?: string) => 
     (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
-      setForm((prev) => ({ ...prev, [key]: e.target.value }));
+      setForm((prev) => ({ ...prev, [key]: e.target.value || value }));
 
-  const setDateTime = (timestamp: number) => {
+  const   setDateTime = (timestamp: number | Date) => {
     const datestr = new Date(timestamp).toISOString().split("T");
     const date = datestr[0];
     const time = datestr[1].split(":");
@@ -216,8 +209,9 @@ export default function Report(): JSX.Element {
 
   const setAddress = async (coords: { lat: number; long: number }) => {
     const { lat, long } = coords;
+    const GMapApiKey = '' ;
     const response = await fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=`
+      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=${GMapApiKey}`
     );
     const json = await response.json();
     const targetTypes = ["administrative_area_level_1", "administrative_area_level_2", "administrative_area_level_3"];
@@ -240,7 +234,7 @@ export default function Report(): JSX.Element {
           coords: { lat: position.coords.latitude, long: position.coords.longitude, accuracy: position.coords.accuracy },
           timestamp: position.timestamp,
         };
-        setDateTime(locData.timestamp);
+        // setDateTime(locData.timestamp);
         setAddress(locData.coords);
       },
       (err) => console.error(err)
@@ -267,14 +261,13 @@ export default function Report(): JSX.Element {
     { label: "Receive status updates",        desc: "Get notified when authorities respond or status changes",          val: updates,      toggle: () => setUpdates((v) => !v) },
   ];
 
-  // ── Step content ────────────────────────────────────────────────────────────
   const stepContent = [
     // 01 CLASSIFY
     <>
       <Card>
         <CardLabel required>Threat category</CardLabel>
         <div className="grid grid-cols-3 gap-2">
-          {THREAT_TYPES.map(({ Icon, name, sub, iconClass }, i) => (
+          {THREAT_TYPES.map(({ Icon, name, sub }, i) => (
             <button
               key={name}
               onClick={() => setThreat(i)}
@@ -284,7 +277,7 @@ export default function Report(): JSX.Element {
                   : "border-black/5 bg-black/20 dark:border-white/8 dark:bg-[#1a1a18] dark:hover:border-white/20"
               }`}
             >
-              <div className={`w-7 h-7 flex rounded-lg items-center justify-center text-[13px] ${iconClass}`}>
+              <div className={`w-7 h-7 flex rounded-lg items-center justify-center text-[13px] bg-white/10 text-black/90 dark:text-red-500 dark:bg-red-500/10`}>
                 <Icon />
               </div>
               <span className={`text-[11px] font-bold leading-tight ${threat === i ? "dark:text-red-500 text-white/80" : "dark:text-[#f5f4ef]"}`}>
@@ -341,9 +334,21 @@ export default function Report(): JSX.Element {
           </select>
         </Field>
       </div>
-      <Field label="Time of incident">
-        <input type="datetime-local" className={inputCls} value={form.datetime} onChange={setField("datetime")} />
-      </Field>
+      <div className="flex gap-2 items-end mb-3">
+        <Field label="Time of incident"  className="flex-1 mb-0!">
+          <input type="datetime-local" className={inputCls} value={form.datetime} onChange={setField("datetime")} />
+        </Field>
+        <button
+            onClick={() => {
+              const now = new Date();
+              setDateTime(now)
+            }}
+            className="flex items-center gap-[5px] px-4 py-[9px] rounded-lg border bg-white/5 border-white/50 dark:border-white/12 dark:bg-[#1a1a18] text-[11px] font-bold dark:text-white/55 dark:hover:text-white/80 dark:hover:border-white/25 transition-all cursor-pointer whitespace-nowrap h-10"
+          >
+          <TimerTwoToneIcon />
+          Current Time
+        </button>
+      </div>
     </Card>,
 
     // 03 DETAIL
@@ -371,7 +376,7 @@ export default function Report(): JSX.Element {
 
   <label
     htmlFor="media-upload"
-    className="block border border-dashed border-white/15 rounded-lg p-6 text-center cursor-pointer hover:border-white/25 hover:bg-white/2 transition-all"
+    className="block border border-dashed border-white/50 rounded-lg p-6 text-center cursor-pointer hover:border-white/25 hover:bg-white/2 transition-all"
   >
     {mediaPreview ? (
       <div className="flex flex-col items-center gap-2">
@@ -381,7 +386,7 @@ export default function Report(): JSX.Element {
           className="max-h-40 rounded-lg object-contain border border-white/10"
         />
         <p className="font-mono text-[9px] text-white/40">{mediaFile?.name}</p>
-        <p className="font-mono text-[9px] text-red-400 hover:text-red-300">Click to change</p>
+        <p className="font-mono text-[9px] text-red-500 hover:text-red-300">Click to change</p>
       </div>
     ) : (
       <>
@@ -407,7 +412,7 @@ export default function Report(): JSX.Element {
       onClick={() => { setMediaFile(null); setMediaPreview(null); }}
       className="mt-2 w-full py-2 rounded-lg border border-white/8 text-[11px] font-bold dark:text-white/40 hover:text-white/60 hover:border-white/20 transition-all cursor-pointer bg-transparent"
     >
-      Remove image ✕
+      Remove image 
     </button>
   )}
 </Card>
@@ -427,55 +432,82 @@ export default function Report(): JSX.Element {
       ))}
     </Card>,
   ];
-
+  
   return (
     <>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap');
         .font-syne { font-family: 'Syne', sans-serif; }
         .font-mono { font-family: 'Space Mono', monospace; }
-
+        
         /* MUI stepper overrides */
         .report-stepper .MuiStepLabel-label {
           font-family: 'Space Mono', monospace !important;
           font-size: 9px !important;
           letter-spacing: 0.1em !important;
           font-weight: 700 !important;
-          color: rgba(255,255,255,0.3) !important;
-        }
-        .report-stepper .MuiStepLabel-label.Mui-active {
-          color: #ef4444 !important;
-        }
-        .report-stepper .MuiStepLabel-label.Mui-completed {
-          color: rgba(255,255,255,0.55) !important;
-        }
-        .report-stepper .MuiStepIcon-root {
-          color: rgba(255,255,255,0.08) !important;
-        }
-        .report-stepper .MuiStepIcon-root.Mui-active {
-          color: #ef4444 !important;
-        }
-        .report-stepper .MuiStepIcon-root.Mui-completed {
-          color: rgba(255,255,255,0.25) !important;
-        }
-        .report-stepper .MuiStepConnector-line {
+          color: rgba(0,0,0,0.35) !important;
+          }
+          .report-stepper .MuiStepLabel-label.Mui-active {
+            color: #ef4444 !important;
+            }
+            .dark .report-stepper .MuiStepLabel-label {
+              color: rgba(255,255,255,0.3) !important;
+              }
+              .dark .report-stepper .MuiStepContent-root {
+                border-color: rgba(255,255,255,0.08) !important;
+                margin-left: 12px !important;
+                padding-left: 20px !important;
+              }
+            .report-stepper .MuiStepLabel-label.Mui-completed {
+              color: rgba(0,0,0,0.55) !important;
+              }
+              .report-stepper .MuiStepIcon-root {
+                color: rgba(0,0,0,0.18) !important;
+                }
+                .report-stepper .MuiStepIcon-root.Mui-active {
+                  color: #ef4444 !important;
+                  }
+                  .report-stepper .MuiStepIcon-root.Mui-completed {
+                    color: rgba(0,0,0,0.35) !important;
+                    }
+                    .report-stepper .MuiStepConnector-line {
+                      border-color: rgba(0,0,0,0.12) !important;
+                      }
+                      .report-stepper .MuiStepContent-root {
+                        border-color: rgba(0,0,0,0.12) !important;
+                        margin-left: 12px !important;
+                        padding-left: 20px !important;
+                        }
+                        
+                        .dark .report-stepper .MuiStepLabel-label.Mui-active {
+                          color: #ef4444 !important;
+                          }
+                          .dark .report-stepper .MuiStepLabel-label.Mui-completed {
+                            color: rgba(255,255,255,0.55) !important;
+                            }
+                            .dark .report-stepper .MuiStepIcon-root {
+                              color: rgba(255,255,255,0.08) !important;
+                              }
+                              .dark .report-stepper .MuiStepIcon-root.Mui-active {
+                                color: #ef4444 !important;
+                                }
+                                .dark .report-stepper .MuiStepIcon-root.Mui-completed {
+                                  color: rgba(255,255,255,0.25) !important;
+                                  }
+                                  .dark .report-stepper .MuiStepConnector-line {
           border-color: rgba(255,255,255,0.08) !important;
-        }
-        .report-stepper .MuiStepContent-root {
-          border-color: rgba(255,255,255,0.08) !important;
-          margin-left: 12px !important;
-          padding-left: 20px !important;
         }
       `}</style>
 
-      <div className="font-syne dark:bg-[#0d0d0b] dark:text-[#f5f4ef] min-h-screen">
-        <div className="max-w-2xl mx-auto px-5 pb-16">
+      <div className="dark:text-[#f5f4ef] min-h-screen">
+        <div className="max-w-3xl mx-auto pb-16">
 
           {/* HEADER */}
           <div className="my-7">
             <div className="flex items-center gap-2 mb-3">
-              <PulsingDot color="bg-black dark:bg-red-400" />
-              <span className="font-mono text-[9px] tracking-[0.12em] text-black dark:text-red-400 uppercase">
+              <PulsingDot color="bg-black dark:bg-red-500" />
+              <span className="font-mono text-[9px] tracking-[0.12em] text-black dark:text-red-500 uppercase">
                 Submit incident report
               </span>
             </div>
@@ -489,7 +521,7 @@ export default function Report(): JSX.Element {
 
           {submitted ? (
             <div className="text-center py-16">
-              <div className="w-16 h-16 rounded-full bg-teal-500/10 flex items-center justify-center mx-auto mb-5 text-teal-400">
+              <div className="w-16 h-16 rounded-full bg-teal-500/10 flex items-center justify-center mx-auto mb-5 text-teal-500">
                 <IconCheck />
               </div>
               <h2 className="text-[1.5rem] font-extrabold tracking-[-0.04em] mb-3">Report submitted</h2>
