@@ -487,7 +487,7 @@ export default function Report(): JSX.Element {
 
   {mediaFile && (
     <button
-      onClick={() => { setMediaFile(null); setMediaPreview(null); }}
+      onClick={() => { setMediaFile(null); setMediaPreview(null); setForm((prev) => ({ ...prev, evidenceMedia: null})) }}
       className="mt-2 w-full py-2 rounded-lg border border-white/8 text-[11px] font-bold dark:text-white/40 hover:text-white/60 hover:border-white/20 transition-all cursor-pointer bg-transparent"
     >
       Remove image 
