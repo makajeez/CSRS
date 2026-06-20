@@ -39,7 +39,7 @@ interface FormState {
   datetime: string;
   description: string;
   suspect: string;
-  evidenceMedia: "";
+  evidenceMedia: string | null ;
   anonymous: boolean;
   corroborate: boolean;
   update: boolean;
@@ -173,7 +173,7 @@ export default function Report(): JSX.Element {
     datetime: "",
     description: "",
     suspect: "",
-    evidenceMedia: "",
+    evidenceMedia: null,
     anonymous: true,
     corroborate: true,
     update: true,
@@ -186,9 +186,12 @@ export default function Report(): JSX.Element {
     const file = e.target.files?.[0] ?? null;
     setMediaFile(file);
         if (file) {
-            setMediaPreview(URL.createObjectURL(file));
+            const objectUrl = URL.createObjectURL(file);
+            setMediaPreview(objectUrl);
+            setForm((prev) => ({ ...prev, evidenceMedia: objectUrl}))
         } else {
             setMediaPreview(null);
+            setForm((prev) => ({ ...prev, evidenceMedia: null}))
         }
   };
 
