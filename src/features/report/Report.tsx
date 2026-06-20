@@ -16,6 +16,7 @@ import StepContent from '@mui/material/StepContent';
 
 import { getLgas, getStates } from "ng-states-core";
 import { PulsingDot } from '../shared/SharedUI';
+import { enqueueSnackbar } from "notistack";
 
 const IconCheck = () => (
   <svg viewBox="0 0 24 24" className="w-7 h-7 fill-current">
@@ -211,23 +212,51 @@ export default function Report(): JSX.Element {
   const setAddress = async (coords: { lat: number; long: number }) => {
     const { lat, long } = coords;
     const GMapApiKey = import.meta.env.VITE_GMAP_API_URL;
-    console.log(GMapApiKey);
-    setLoading(true);
-    const response = await fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=${GMapApiKey}`
-    );
-    const json = await response.json();
-    const targetTypes = ["administrative_area_level_1", "administrative_area_level_2", "administrative_area_level_3"];
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const results = json.results[0].address_components.filter((c: any) =>
-      c.types.some((t: string) => targetTypes.includes(t))
-    );
-    setForm((prev) => ({
-      ...prev,
-      state: results[2].long_name,
-      lga: results[1].long_name,
-      address: results[0].long_name,
-    }));
+
+    try {
+      const response = await fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=${GMapApiKey}`
+      );
+
+      if (!response.ok) {
+        enqueueSnackbar(`Geocode request failed: ${response.status} ${response.statusText}, enter manually`, { variant: 'error' });
+      }
+
+      const json = await response.json();
+      const components = json.results?.[0]?.address_components;
+
+      if (!Array.isArray(components)) {
+        enqueueSnackbar('Geocode response did not include address components, enter manually', { variant: 'error'});
+      }
+
+      const addressData: { state?: string; lga?: string; address?: string } = {};
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      components.forEach((c: any) => {
+        if (c.types.includes('administrative_area_level_1')) {
+          addressData.state = c.long_name;
+        }
+        if (c.types.includes('administrative_area_level_2')) {
+          addressData.lga = c.long_name;
+        }
+        if (c.types.includes('administrative_area_level_3')) {
+          addressData.address = c.long_name;
+        }
+      });
+
+      if (!addressData.state || !addressData.lga || !addressData.address) {
+        enqueueSnackbar('Incomplete address data from geocode response, enter manually', {variant: 'error'});
+      }
+
+      setForm((prev) => ({
+        ...prev,
+        state: addressData.state!,
+        lga: addressData.lga!,
+        address: addressData.address!,
+      }));
+    } catch (error) {
+      console.error('Error setting address from coordinates:', error);
+    }
   };
 
   const invokeGPS = () => {
@@ -238,12 +267,12 @@ export default function Report(): JSX.Element {
           coords: { lat: position.coords.latitude, long: position.coords.longitude, accuracy: position.coords.accuracy },
           timestamp: position.timestamp,
         };
-        // setDateTime(locData.timestamp);
         setAddress(locData.coords);
         setLoading(false);
+        enqueueSnackbar(`Location data fetched`, { variant: "success" });
       },
-      (err) => {
-        console.error(err);
+      () => {
+        enqueueSnackbar(`Error fetching data, enter manually`, { variant: "error" });
         setLoading(false);
       }
     );
