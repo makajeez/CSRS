@@ -42,7 +42,7 @@ interface FormState {
   evidenceMedia: "";
   anonymous: boolean;
   corroborate: boolean;
-  statusUpdate: boolean;
+  update: boolean;
 }
 
 interface ToggleSetting {
@@ -156,9 +156,6 @@ export default function Report(): JSX.Element {
   const [activeStep, setActiveStep] = useState(0);
   const [threat, setThreat] = useState(0);
   const [sev, setSev] = useState("low");
-  const [anon, setAnon] = useState(true);
-  const [corroborate, setCorr] = useState(true);
-  const [updates, setUpdates] = useState(true);
   const [submitted, setSubmitted] = useState(false);
   const [refNo, setRefNo] = useState("");
   const [loading, setLoading] = useState(false);
@@ -179,7 +176,7 @@ export default function Report(): JSX.Element {
     evidenceMedia: "",
     anonymous: true,
     corroborate: true,
-    statusUpdate: true,
+    update: true,
   });
 
   const [mediaFile, setMediaFile] = useState<File | null>(null);
@@ -250,6 +247,8 @@ export default function Report(): JSX.Element {
 
       setForm((prev) => ({
         ...prev,
+        lat: lat,
+        long: long,
         state: addressData.state!,
         lga: addressData.lga!,
         address: addressData.address!,
@@ -293,9 +292,33 @@ export default function Report(): JSX.Element {
   }
 
   const toggleSettings: ToggleSetting[] = [
-    { label: "Anonymous report",             desc: "Your identity will never be shared with authorities or other users", val: anon,        toggle: () => setAnon((v) => !v) },
-    { label: "Allow community corroboration", desc: "Nearby users can verify and add details to this report",           val: corroborate,  toggle: () => setCorr((v) => !v) },
-    { label: "Receive status updates",        desc: "Get notified when authorities respond or status changes",          val: updates,      toggle: () => setUpdates((v) => !v) },
+    {
+      label: "Anonymous report",
+      desc: "Your identity will never be shared with authorities or other users",
+      val: form.anonymous,
+      toggle: () => {
+        // setAnon((v: boolean) => !v);
+        setForm((prev) => ({ ...prev, anonymous: !prev.anonymous }));
+      },
+    },
+    {
+      label: "Allow community corroboration",
+      desc: "Nearby users can verify and add details to this report",
+      val: form.corroborate,
+      toggle: () => {
+        // setCorr((v: boolean) => !v);
+        setForm((prev) => ({ ...prev, corroborate: !prev.corroborate }));
+      },
+    },
+    {
+      label: "Receive status updates",
+      desc: "Get notified when authorities respond or status changes",
+      val: form.update,
+      toggle: () => {
+        // setUpdates((v: boolean) => !v);
+        setForm((prev) => ({ ...prev, update: !prev.update }));
+      },
+    },
   ];
 
   const stepContent = [
@@ -307,7 +330,10 @@ export default function Report(): JSX.Element {
           {THREAT_TYPES.map(({ Icon, name, sub }, i) => (
             <button
               key={name}
-              onClick={() => setThreat(i)}
+              onClick={() => {
+                setThreat(i);
+                setForm((prev) => ({ ...prev, threatCategory: i }));
+              }}
               className={`flex flex-col items-center gap-[5px] py-3 px-2 rounded-lg border transition-all duration-150 cursor-pointer text-center ${
                 threat === i
                   ? "border-black/90 bg-black/35 dark:border-red-500 dark:bg-red-500/6"
@@ -332,7 +358,10 @@ export default function Report(): JSX.Element {
           {SEV_LEVELS.map(({ key, label, selClass }) => (
             <button
               key={key}
-              onClick={() => setSev(key)}
+              onClick={() => {
+                setSev(key);
+                setForm((prev) => ({ ...prev, severityLevel: key }));
+              }}
               className={`flex-1 py-[9px] rounded-lg border text-[11px] font-bold transition-all duration-150 cursor-pointer ${
                 sev === key ? selClass : "bg-transparent text-black dark:text-white/45 dark:border-white/8 border-black/20 dark:hover:border-white/20"
               }`}
@@ -613,7 +642,6 @@ export default function Report(): JSX.Element {
               ))}
             </Stepper>
           )}
-
         </div>
       </div>
     </>
