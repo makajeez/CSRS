@@ -108,7 +108,7 @@ const CardLabel: FC<{ children: ReactNode; required?: boolean }> = ({ children, 
   <div className="flex items-center gap-2 font-mono text-[9px] tracking-widest uppercase dark:text-white/30 font-bold mb-4">
     {children}
     {required && (
-      <span className="text-red-500 dark:bg-red-500/10 dark:text-red-500 font-mono text-[9px] px-2 py-0.5 rounded-full">
+      <span className="text-red-500 bg-red-500/10 dark:text-red-500 font-mono text-[9px] px-2 py-0.5 rounded-full">
         * REQUIRED
       </span>
     )}
@@ -609,11 +609,11 @@ export default function Report(): JSX.Element {
               <br />
               <button
                 onClick={() => { setSubmitted(false); setActiveStep(0); resetForm(); }}
-                className="bg-red-500 hover:bg-red-600 active:scale-[0.98] text-white font-extrabold text-[14px] tracking-[-0.02em] px-8 py-3.25 rounded-lg border-none cursor-pointer transition-all"
+                className="bg-red-500 hover:bg-red-600 active:scale-[0.98] dark:text-white font-extrabold text-[14px] tracking-[-0.02em] px-8 py-3.25 rounded-lg border-none cursor-pointer transition-all"
               >
                 Submit another report
               </button>
-              <p className="font-mono text-[9px] text-white/25 mt-4 tracking-[0.04em]">
+              <p className="font-mono text-[9px] dark:text-white/25 mt-4 tracking-[0.04em]">
                 REPORT ANONYMISED · REFERENCE SAVED LOCALLY
               </p>
             </div>
