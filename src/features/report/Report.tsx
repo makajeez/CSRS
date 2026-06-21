@@ -76,6 +76,11 @@ const SEV_LEVELS: SevLevel[] = [
 
 const STEP_LABELS = ["01 CLASSIFY", "02 LOCATE", "03 DETAIL", "04 SUBMIT"];
 
+const generateReportRef = () => {
+  const year = new Date().getFullYear();
+  return `CS-${year}-` + String(Math.floor(10000 + Math.random() * 9999999999));
+};
+
 const inputCls = "w-full border bg-white/5 border-white/50 dark:bg-[#1a1a18] dark:border-white/[0.08] rounded-lg px-3 py-[9px] text-[13px] dark:text-[#f5f4ef] outline-none focus:border-white/20 transition-colors";
   
 const Toggle: FC<{ on: boolean; onToggle: () => void }> = ({ on, onToggle }) => (
@@ -157,7 +162,7 @@ export default function Report(): JSX.Element {
   const [threat, setThreat] = useState(0);
   const [sev, setSev] = useState("low");
   const [submitted, setSubmitted] = useState(false);
-  // const [refNo, setRefNo] = useState("");
+  const [refNo, setRefNo] = useState("");
   const [loading, setLoading] = useState(false);
 
   const STATES = getStates().map((s) => s.state).sort();
@@ -298,9 +303,7 @@ export default function Report(): JSX.Element {
   const handleBack = () => setActiveStep((s) => s - 1);
 
   function handleSubmit() {
-    // const year = new Date().getFullYear();
-    // const ref = `CS-${year}-` + String(Math.floor(10000 + Math.random() * 90000));
-    // setRefNo(ref);
+    setRefNo(generateReportRef());
     setSubmitted(true);
     resetForm();
   }
@@ -601,7 +604,7 @@ export default function Report(): JSX.Element {
                 Your report has been encrypted and forwarded to verified response units. You will receive a status update within 15 minutes.
               </p>
               <span className="font-mono text-[11px] dark:bg-[#111110] border dark:border-white/8 rounded-lg px-5 py-2 inline-block mb-6">
-                {/* {refNo} */}
+                {refNo}
               </span>
               <br />
               <button
