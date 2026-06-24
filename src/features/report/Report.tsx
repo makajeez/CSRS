@@ -624,7 +624,7 @@ export default function Report(): JSX.Element {
           ) : 
           (
             <>
-              <div className="my-7">
+              <div className="my-10">
                 <div className="flex items-center gap-2 mb-3">
                   <PulsingDot color="bg-black dark:bg-red-500" />
                   <span className="font-mono text-[9px] tracking-[0.12em] text-black dark:text-red-500 uppercase">
