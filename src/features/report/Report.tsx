@@ -164,6 +164,8 @@ export default function Report(): JSX.Element {
   const [submitted, setSubmitted] = useState(false);
   const [refNo, setRefNo] = useState("");
   const [loading, setLoading] = useState(false);
+  const [update, setUpdate] = useState(false);
+  
 
   const STATES = getStates().map((s) => s.state).sort();
 
@@ -179,10 +181,11 @@ export default function Report(): JSX.Element {
     description: "",
     suspect: "",
     evidenceMedia: null,
-    anonymous: true,
-    corroborate: true,
-    update: true,
+    anonymous: false,
+    corroborate: false,
+    update: false,
   });
+
 
   const [form, setForm] = useState<FormState>(getInitialFormState());
 
@@ -332,7 +335,7 @@ export default function Report(): JSX.Element {
       desc: "Get notified when authorities respond or status changes",
       val: form.update,
       toggle: () => {
-        // setUpdates((v: boolean) => !v);
+        setUpdate((v: boolean) => !v);
         setForm((prev) => ({ ...prev, update: !prev.update }));
       },
     },
@@ -540,54 +543,53 @@ export default function Report(): JSX.Element {
           font-weight: 700 !important;
           color: rgba(0,0,0,0.35) !important;
           }
-          .report-stepper .MuiStepLabel-label.Mui-active {
-            color: #ef4444 !important;
-            }
-            .dark .report-stepper .MuiStepLabel-label {
-              color: rgba(255,255,255,0.3) !important;
-              }
-              .dark .report-stepper .MuiStepContent-root {
-                border-color: rgba(255,255,255,0.08) !important;
-                margin-left: 12px !important;
-                padding-left: 20px !important;
-              }
-            .report-stepper .MuiStepLabel-label.Mui-completed {
-              color: rgba(0,0,0,0.55) !important;
-              }
-              .report-stepper .MuiStepIcon-root {
-                color: rgba(0,0,0,0.18) !important;
-                }
-                .report-stepper .MuiStepIcon-root.Mui-active {
-                  color: #ef4444 !important;
-                  }
-                  .report-stepper .MuiStepIcon-root.Mui-completed {
-                    color: rgba(0,0,0,0.35) !important;
-                    }
-                    .report-stepper .MuiStepConnector-line {
-                      border-color: rgba(0,0,0,0.12) !important;
-                      }
-                      .report-stepper .MuiStepContent-root {
-                        border-color: rgba(0,0,0,0.12) !important;
-                        margin-left: 12px !important;
-                        padding-left: 20px !important;
-                        }
-                        
-                        .dark .report-stepper .MuiStepLabel-label.Mui-active {
-                          color: #ef4444 !important;
-                          }
-                          .dark .report-stepper .MuiStepLabel-label.Mui-completed {
-                            color: rgba(255,255,255,0.55) !important;
-                            }
-                            .dark .report-stepper .MuiStepIcon-root {
-                              color: rgba(255,255,255,0.08) !important;
-                              }
-                              .dark .report-stepper .MuiStepIcon-root.Mui-active {
-                                color: #ef4444 !important;
-                                }
-                                .dark .report-stepper .MuiStepIcon-root.Mui-completed {
-                                  color: rgba(255,255,255,0.25) !important;
-                                  }
-                                  .dark .report-stepper .MuiStepConnector-line {
+        .report-stepper .MuiStepLabel-label.Mui-active {
+          color: #ef4444 !important;
+          }
+        .report-stepper .MuiStepLabel-label.Mui-completed {
+          color: rgba(0,0,0,0.55) !important;
+          }
+        .report-stepper .MuiStepIcon-root {
+          color: rgba(0,0,0,0.18) !important;
+          }
+        .report-stepper .MuiStepIcon-root.Mui-active {
+          color: #ef4444 !important;
+          }
+        .report-stepper .MuiStepIcon-root.Mui-completed {
+          color: rgba(0,0,0,0.35) !important;
+          }
+        .report-stepper .MuiStepConnector-line {
+          border-color: rgba(0,0,0,0.12) !important;
+          }
+        .report-stepper .MuiStepContent-root {
+          border-color: rgba(0,0,0,0.12) !important;
+          margin-left: 12px !important;
+          padding-left: 20px !important;
+          }
+        .dark .report-stepper .MuiStepLabel-label {
+          color: rgba(255,255,255,0.3) !important;
+          }
+        .dark .report-stepper .MuiStepContent-root {
+          border-color: rgba(255,255,255,0.08) !important;
+          margin-left: 12px !important;
+          padding-left: 20px !important;
+        }
+        .dark .report-stepper .MuiStepLabel-label.Mui-active {
+          color: #ef4444 !important;
+          }
+        .dark .report-stepper .MuiStepLabel-label.Mui-completed {
+          color: rgba(255,255,255,0.55) !important;
+          }
+        .dark .report-stepper .MuiStepIcon-root {
+          color: rgba(255,255,255,0.08) !important;
+          }
+        .dark .report-stepper .MuiStepIcon-root.Mui-active {
+          color: #ef4444 !important;
+          }
+        .dark .report-stepper .MuiStepIcon-root.Mui-completed {
+          color: rgba(255,255,255,0.25) !important;
+          }
+        .dark .report-stepper .MuiStepConnector-line {
           border-color: rgba(255,255,255,0.08) !important;
         }
       `}</style>
@@ -601,20 +603,22 @@ export default function Report(): JSX.Element {
               </div>
               <h2 className="text-[1.5rem] font-extrabold tracking-[-0.04em] mb-3">Report submitted</h2>
               <p className="text-[13px] dark:text-white/45 leading-[1.7] max-w-sm mx-auto mb-6">
-                Your report has been encrypted and forwarded to verified response units. You will receive a status update within 15 minutes.
+                Your report has been encrypted and forwarded to verified response units. 
+                {update &&
+                <>You will receive a status update within 15 minutes.</>}
               </p>
               <span className="font-mono text-[11px] dark:bg-[#111110] border dark:border-white/8 rounded-lg px-5 py-2 inline-block mb-6">
                 {refNo}
               </span>
               <br />
               <button
-                onClick={() => { setSubmitted(false); setActiveStep(0); resetForm(); }}
+                onClick={() => { setSubmitted(false); setActiveStep(0); resetForm(); setUpdate(false); }}
                 className="bg-red-500 hover:bg-red-600 active:scale-[0.98] dark:text-white font-extrabold text-[14px] tracking-[-0.02em] px-8 py-3.25 rounded-lg border-none cursor-pointer transition-all"
               >
                 Submit another report
               </button>
               <p className="font-mono text-[9px] dark:text-white/25 mt-4 tracking-[0.04em]">
-                REPORT ANONYMISED · REFERENCE SAVED LOCALLY
+                REPORT ANONYMISED.
               </p>
             </div>
           ) : 
