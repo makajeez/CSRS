@@ -20,7 +20,7 @@ function Navbar() {
 
 
   return (
-    <nav className="flex items-center justify-between px-2 py-2 border-b dark:border-white/50">
+    <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-3 border-b border-white/15 bg-white/10 dark:bg-slate-950/20 dark:border-white/10 backdrop-blur-xl shadow-sm">
     <div className="flex items-center gap-1">
       <CrowdMark />
       <span className="text-[15px] text-black dark:text-white font-bold tracking-[-0.02em]">
