@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import DarkModeTwoToneIcon from '@mui/icons-material/DarkModeTwoTone'
 import LightModeTwoToneIcon from '@mui/icons-material/LightModeTwoTone'
+import Tooltip from "@mui/material/Tooltip";
 
 
 // Restrictng theme types to these 2
@@ -42,7 +43,14 @@ export default function ThemeToggle(){
       onClick={toggleTheme}
       className="px-1 py-1 rounded-lg dark:bg-white/20 bg-black/20 border border-black/50 dark:border-white/50 transition-colors duration-200 toggle-theme"
     >
-      {theme === "light" ? <DarkModeTwoToneIcon /> : <LightModeTwoToneIcon className="text-white/50"/>}
+      {theme === "light" ? 
+        <Tooltip title='Dark Mode'>
+          <DarkModeTwoToneIcon />
+        </Tooltip> : 
+        <Tooltip title='Light Mode'>
+          <LightModeTwoToneIcon className="text-white/50"/>
+        </Tooltip>
+      }
     </button>
   );
 }

@@ -1,6 +1,8 @@
 import GroupsTwoToneIcon from '@mui/icons-material/GroupsTwoTone';
 import { NavLink, useLocation } from 'react-router-dom';
 import  ThemeToggle  from '../shared/ThemeToggle';
+import Tooltip from '@mui/material/Tooltip';
+import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone'
 
 const CrowdMark = () => (
   <div className="relative w-8 h-8 dark:bg-red-500 bg-black rounded-md flex items-center justify-center text-white">
@@ -27,9 +29,11 @@ function Navbar() {
     </div>
     {location.pathname === '/report'?
         <NavLink to="/" >
-          <span  className="font-mono-custom text-[10px] bg-black/20 dark:bg-red-500/20 dark:text-red-500 border dark:border-red-500/35 px-3 py-1 rounded-full tracking-[0.08em]">
-            HOME
-          </span>
+          <Tooltip title="Home">
+            <span  className="font-mono-custom text-[10px] bg-black/20 dark:bg-red-500/20 dark:text-red-500 border dark:border-red-500/35 px-3 py-1 rounded-full tracking-[0.08em]">
+              <HomeTwoToneIcon />
+            </span>
+          </Tooltip>
         </NavLink>
     :
       <NavLink to="/report">
