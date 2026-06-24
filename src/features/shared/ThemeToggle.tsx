@@ -41,7 +41,7 @@ export default function ThemeToggle(){
   return (
     <button
       onClick={toggleTheme}
-      className="px-1 py-1 rounded-lg dark:bg-white/20 bg-black/20 border border-black/50 dark:border-white/50 transition-colors duration-200 toggle-theme"
+      className="px-1 py-1 rounded-lg dark:bg-white/20 bg-black/20 border border-black/50 dark:border-white/50 transition-colors duration-200"
     >
       {theme === "light" ? 
         <Tooltip title='Dark Mode'>

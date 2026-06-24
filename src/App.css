@@ -8,7 +8,7 @@ body {
 
 .toggle-theme {
   position: fixed;
-  top: 80px;
+  bottom: 80px;
   right: 10px;
 }
 

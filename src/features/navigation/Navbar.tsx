@@ -20,17 +20,18 @@ function Navbar() {
 
 
   return (
-    <nav className="flex items-center justify-between px-2 py-3 border-b dark:border-white/50">
+    <nav className="flex items-center justify-between px-2 py-2 border-b dark:border-white/50">
     <div className="flex items-center gap-1">
       <CrowdMark />
       <span className="text-[15px] text-black dark:text-white font-bold tracking-[-0.02em]">
         CROWD<span className="text-red-500">SOURCE</span>
       </span>
     </div>
+    <div className='flex items-center gap-2'>
     {location.pathname === '/report'?
         <NavLink to="/" >
           <Tooltip title="Home">
-            <span  className="font-mono-custom text-[10px] bg-black/20 dark:bg-red-500/20 dark:text-red-500 border dark:border-red-500/35 px-3 py-1 rounded-full tracking-[0.08em]">
+            <span  className="bg-black/20 dark:bg-red-500/20 dark:text-red-500 border dark:border-red-500/35 px-2 py-2 rounded-lg">
               <HomeTwoToneIcon />
             </span>
           </Tooltip>
@@ -43,6 +44,7 @@ function Navbar() {
       </NavLink>
     }
     <ThemeToggle />
+    </div>
   </nav>
   );
 };
