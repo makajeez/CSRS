@@ -28,7 +28,8 @@ function Navbar() {
       </span>
     </div>
     <div className='flex items-center gap-2'>
-    {location.pathname === '/report'?
+    {location.pathname !== '/dashboard' && (
+      location.pathname === '/report' ?
         <NavLink to="/" >
           <Tooltip title="Home">
             <span  className="bg-black/20 dark:bg-red-500/20 dark:text-red-500 border dark:border-red-500/35 px-2 py-2 rounded-lg">
@@ -36,13 +37,13 @@ function Navbar() {
             </span>
           </Tooltip>
         </NavLink>
-    :
-      <NavLink to="/report">
-        <span  className="font-mono-custom text-[10px] bg-black/20 dark:bg-red-500/20 dark:text-red-500 border dark:border-red-500/35 px-3 py-1 rounded-full tracking-[0.08em]">
-          SUBMIT REPORT
-        </span>
-      </NavLink>
-    }
+      :
+        <NavLink to="/report">
+          <span  className="font-mono-custom text-[10px] bg-black/20 dark:bg-red-500/20 dark:text-red-500 border dark:border-red-500/35 px-3 py-1 rounded-full tracking-[0.08em]">
+            SUBMIT REPORT
+          </span>
+        </NavLink>
+    )}
     <ThemeToggle />
     </div>
   </nav>
