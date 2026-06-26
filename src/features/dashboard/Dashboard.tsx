@@ -48,7 +48,7 @@ const STATUS_CLASSES: Record<Status, string> = {
 const MetricCard = ({
   label, value, valueClass = "",
 }: { label: string; value: number; valueClass?: string }) => (
-  <div className="border border-black/10 bg-black/5 dark:bg-white/5 rounded-lg px-4 py-3">
+  <div className="border border-black/10 bg-black/5 dark:bg-white/5 rounded-lg px-4 py-3 text-center">
     <p className="text-[11px] text-black/45 dark:text-white/40 mb-1">{label}</p>
     <p className={`text-[22px] font-bold tracking-[-0.03em] ${valueClass}`}>{value}</p>
   </div>
@@ -102,7 +102,7 @@ export default function CommandCenter() {
     setExpanded((prev) => (prev === ref ? null : ref));
 
   const selectCls =
-    "text-[13px] h-[34px] px-3 rounded-lg border border-white/10 bg-white/5 dark:bg-[#1a1a18] dark:text-[#f5f4ef] outline-none focus:border-white/25 transition-colors cursor-pointer";
+    "text-[13px] h-[34px] px-3 rounded-lg border border-black/10 dark:border-white/10 bg-black/5 dark:bg-[#1a1a18] dark:text-[#f5f4ef] outline-none focus:border-black/25 transition-colors cursor-pointer";
 
   return (
     <div className="font-syne dark:text-[#f5f4ef] min-h-screen">
@@ -136,7 +136,7 @@ export default function CommandCenter() {
             placeholder="Search ref, location, category..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className={`${selectCls} flex-1 min-w-[180px] px-3`}
+            className={`${selectCls} flex-1 min-w-[180px]`}
           />
           <select className={selectCls} value={sevFilter} onChange={(e) => setSevFilter(e.target.value)}>
             <option value="">All severities</option>
