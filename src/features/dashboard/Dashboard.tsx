@@ -1,9 +1,8 @@
 import { useState, useMemo } from "react";
-import { type SeverityLevel } from "../../types";
 
-// ── Types ─────────────────────────────────────────────────────────────────────
-// type Severity = "Low" | "Medium" | "High" | "Critical";
+
 type Status   = "Pending" | "Routed" | "Resolved";
+type SeverityLevel = 'low' | 'medium' | 'high' | 'critical'
 
 interface Report {
   ref:          string;
@@ -19,7 +18,6 @@ interface Report {
   status:       Status;
 }
 
-// ── Mock data ─────────────────────────────────────────────────────────────────
 const INITIAL_REPORTS: Report[] = [
   { ref: "CS-2025-11204", cat: "Armed robbery",       state: "Kano",   lga: "Tarauni",    address: "Naibawa",            sev: "critical", outpost: "Tarauni Police Station",   outpostDist: "1.2km", time: "2025-07-12 08:41", desc: "Two armed men on motorcycle snatched a phone near Naibawa junction, heading north on a black Bajaj.",       status: "Pending"  },
   { ref: "CS-2025-22897", cat: "Suspicious activity", state: "Abuja",  lga: "Wuse",       address: "Wuse Zone 4",        sev: "medium",   outpost: "Wuse II Police Station",   outpostDist: "0.8km", time: "2025-07-12 09:14", desc: "Unidentified male loitering around embassy row for over 2 hours, taking photos of vehicles.",              status: "Routed"   },
@@ -33,37 +31,36 @@ const INITIAL_REPORTS: Report[] = [
   { ref: "CS-2025-10432", cat: "Missing person",      state: "Lagos",  lga: "Alimosho",   address: "Ikotun",             sev: "high",     outpost: "Alimosho Police Division", outpostDist: "2.3km", time: "2025-07-09 19:05", desc: "Woman, 34, missing since yesterday. Last seen at Ikotun market in yellow blouse. Family unable to reach her.", status: "Pending"  },
 ];
 
-// ── Style helpers ─────────────────────────────────────────────────────────────
+
 const SEV_CLASSES: Record<SeverityLevel, string> = {
-  low:      "bg-teal-500/10 text-teal-700 dark:text-teal-400",
-  medium:   "bg-amber-400/10 text-amber-700 dark:text-amber-400",
-  high:     "bg-red-500/10 text-red-700 dark:text-red-400",
-  critical: "bg-red-500 text-white",
+  low:      "bg-black/10 dark:bg-teal-500/10 text-teal-700 dark:text-teal-400",
+  medium:   "bg-black/10 dark:bg-amber-400/10 text-amber-700 dark:text-amber-400",
+  high:     "bg-black/10 dark:bg-red-500/10 text-red-500 dark:text-red-400",
+  critical: "bg-black/10 dark:bg-red-500 text-red-700 dark:text-white",
 };
 
 const STATUS_CLASSES: Record<Status, string> = {
-  Pending:  "bg-black/10 text-black/50 dark:bg-white/8 dark:text-white/45",
-  Routed:   "bg-blue-500/10 text-blue-700 dark:text-blue-400",
-  Resolved: "bg-teal-500/10 text-teal-700 dark:text-teal-400",
+  Pending:  "dark:text-white/45 bg-black/10 text-black/50 dark:bg-white/8",
+  Routed:   "dark:text-blue-400 bg-black/10 text-blue-700 ",
+  Resolved: "dark:text-teal-400 bg-black/10 text-teal-700 ",
 };
-
-// ── Sub-components ────────────────────────────────────────────────────────────
-const Badge = ({ label, cls }: { label: string; cls: string }) => (
-  <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold whitespace-nowrap ${cls}`}>
-    {label}
-  </span>
-);
 
 const MetricCard = ({
   label, value, valueClass = "",
 }: { label: string; value: number; valueClass?: string }) => (
-  <div className="bg-black/5 dark:bg-white/5 rounded-lg px-4 py-3">
+  <div className="border border-black/10 bg-black/5 dark:bg-white/5 rounded-lg px-4 py-3">
     <p className="text-[11px] text-black/45 dark:text-white/40 mb-1">{label}</p>
     <p className={`text-[22px] font-bold tracking-[-0.03em] ${valueClass}`}>{value}</p>
   </div>
 );
 
-// ── Main component ────────────────────────────────────────────────────────────
+const Badge = ({ label, cls }: { label: string; cls: string }) => (
+  <span className={`inline-flex items-center px-2 py-0.5 dark:border-none border rounded-full text-[11px] font-bold whitespace-nowrap ${cls}`}>
+    {label}
+  </span>
+);
+
+
 export default function CommandCenter() {
   const [reports, setReports]   = useState<Report[]>(INITIAL_REPORTS);
   const [expanded, setExpanded] = useState<string | null>(null);
@@ -108,8 +105,8 @@ export default function CommandCenter() {
     "text-[13px] h-[34px] px-3 rounded-lg border border-white/10 bg-white/5 dark:bg-[#1a1a18] dark:text-[#f5f4ef] outline-none focus:border-white/25 transition-colors cursor-pointer";
 
   return (
-    <div className="font-syne dark:bg-[#0d0d0b] dark:text-[#f5f4ef] min-h-screen">
-      <div className="max-w-6xl mx-auto px-5 py-16">
+    <div className="font-syne dark:text-[#f5f4ef] min-h-screen">
+      <div className="max-w-5xl mx-auto px-5 py-16">
 
         {/* Header */}
         <div className="mb-6">
@@ -247,7 +244,7 @@ export default function CommandCenter() {
                             </button>
                           )}
                           {r.status === "Resolved" && (
-                            <span className="text-[11px] text-teal-500">✓ Done</span>
+                            <span className="text-[11px] text-teal-500">Done</span>
                           )}
                         </div>
                       </td>
