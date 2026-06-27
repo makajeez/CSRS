@@ -14,7 +14,7 @@ interface SectionLabelProps {
   children: ReactNode;
 }
 export const SectionLabel: FC<SectionLabelProps> = ({ children }) => (
-  <p className="font-mono text-[10px] tracking-[0.1em] text-white/30 uppercase mb-5 pb-3 border-b border-white/[0.08]">
+  <p className="font-mono text-[10px] tracking-widest text-white/30 uppercase mb-5 pb-3 border-b border-white/8">
     {children}
   </p>
 );
@@ -25,7 +25,7 @@ interface CardProps {
   className?: string;
 }
 export const Card: FC<CardProps> = ({ children, className = "" }) => (
-  <div className={`bg-[#111110] border border-white/[0.08] rounded-xl p-5 ${className}`}>
+  <div className={`bg-[#111110] border border-white/8 rounded-xl p-5 ${className}`}>
     {children}
   </div>
 );
@@ -36,10 +36,10 @@ interface CardLabelProps {
   required?: boolean;
 }
 export const CardLabel: FC<CardLabelProps> = ({ children, required }) => (
-  <div className="flex items-center gap-2 font-mono text-[9px] tracking-[0.1em] uppercase text-white/30 mb-4">
+  <div className="flex items-center gap-2 font-mono text-[9px] tracking-widest uppercase text-white/30 mb-4">
     {children}
     {required && (
-      <span className="bg-red-500/10 text-red-500 font-mono text-[9px] px-2 py-[2px] rounded-full">
+      <span className="bg-red-500/10 text-red-500 font-mono text-[9px] px-2 py-0.5 rounded-full">
         REQUIRED
       </span>
     )}
@@ -55,7 +55,7 @@ interface FieldProps {
 export const Field: FC<FieldProps> = ({ label, children, className = "" }) => (
   <div className={`mb-3 ${className}`}>
     {label && (
-      <label className="block text-[12px] font-bold text-white/55 mb-[5px] tracking-[-0.01em]">
+      <label className="block text-[12px] font-bold text-white/55 mb-1.25 tracking-[-0.01em]">
         {label}
       </label>
     )}
@@ -75,12 +75,12 @@ interface ToggleProps {
 export const Toggle: FC<ToggleProps> = ({ on, onToggle }) => (
   <button
     onClick={onToggle}
-    className={`relative w-9 h-5 rounded-full flex-shrink-0 transition-colors duration-200 border cursor-pointer ${
+    className={`relative w-9 h-5 rounded-full shrink-0 transition-colors duration-200 border cursor-pointer ${
       on ? "bg-red-500 border-red-500" : "bg-white/10 border-white/20"
     }`}
   >
     <span
-      className={`absolute top-[3px] left-[3px] w-[14px] h-[14px] rounded-full bg-white shadow-sm transition-transform duration-200 ${
+      className={`absolute top-0.75 left-0.75 w-3.5 h-3.5 rounded-full bg-white shadow-sm transition-transform duration-200 ${
         on ? "translate-x-4" : "translate-x-0"
       }`}
     />
@@ -99,7 +99,7 @@ interface SeverityBadgeProps {
   level: SeverityLevel;
 }
 export const SeverityBadge: FC<SeverityBadgeProps> = ({ level }) => (
-  <span className={`font-mono text-[9px] px-2 py-[3px] rounded-full border uppercase tracking-[0.06em] ${SEV_STYLES[level]}`}>
+  <span className={`font-mono text-[9px] px-2 py-0.75 rounded-full border uppercase tracking-[0.06em] ${SEV_STYLES[level]}`}>
     {level}
   </span>
 );
@@ -116,7 +116,7 @@ interface StatusBadgeProps {
   status: IncidentStatus;
 }
 export const StatusBadge: FC<StatusBadgeProps> = ({ status }) => (
-  <span className={`font-mono text-[9px] px-2 py-[3px] rounded-full border uppercase tracking-[0.06em] ${STATUS_STYLES[status]}`}>
+  <span className={`font-mono text-[9px] px-2 py-0.75 rounded-full border uppercase tracking-[0.06em] ${STATUS_STYLES[status]}`}>
     {status}
   </span>
 );
@@ -129,7 +129,7 @@ interface StatCardProps {
   accent?: string;
 }
 export const StatCard: FC<StatCardProps> = ({ value, sup, label, accent = "text-red-500" }) => (
-  <div className="bg-[#111110] border border-white/[0.08] rounded-xl py-5 px-4 text-center">
+  <div className="bg-[#111110] border border-white/8 rounded-xl py-5 px-4 text-center">
     <div className="text-[1.75rem] font-extrabold tracking-[-0.04em] text-[#f5f4ef]">
       {value}
       {sup && <span className={accent}>{sup}</span>}
