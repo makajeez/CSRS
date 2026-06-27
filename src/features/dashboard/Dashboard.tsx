@@ -136,7 +136,7 @@ export default function CommandCenter() {
             placeholder="Search ref, location, category..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className={`${selectCls} flex-1 min-w-[180px]`}
+            className={`${selectCls} flex-1 min-w-45`}
           />
           <select className={selectCls} value={sevFilter} onChange={(e) => setSevFilter(e.target.value)}>
             <option value="">All severities</option>
@@ -169,7 +169,7 @@ export default function CommandCenter() {
               <col style={{ width: "18%" }} />
             </colgroup>
             <thead>
-              <tr className="bg-black/5 dark:bg-white/[0.04] border-b border-white/8">
+              <tr className="bg-black/5 dark:bg-white/4 border-b border-white/8">
                 {["Ref", "Category", "Location", "Severity", "Nearest outpost", "Status", "Actions"].map((h) => (
                   <th key={h} className="px-4 py-3 text-left font-mono text-[10px] tracking-widest uppercase text-black/40 dark:text-white/30">
                     {h}
@@ -190,7 +190,7 @@ export default function CommandCenter() {
                     <tr
                       key={r.ref}
                       onClick={() => toggleExpand(r.ref)}
-                      className="border-b border-white/[0.06] hover:bg-black/5 dark:hover:bg-white/[0.03] cursor-pointer transition-colors"
+                      className="border-b border-white/6 hover:bg-black/5 dark:hover:bg-white/3 cursor-pointer transition-colors"
                     >
                       {/* Ref */}
                       <td className="px-4 py-3 font-mono text-[11px] text-black/40 dark:text-white/35 overflow-hidden text-ellipsis whitespace-nowrap">
@@ -252,10 +252,10 @@ export default function CommandCenter() {
 
                     {/* Expanded detail row */}
                     {expanded === r.ref && (
-                      <tr key={`${r.ref}-detail`} className="border-b border-white/[0.06]">
+                      <tr key={`${r.ref}-detail`} className="border-b border-white/6">
                         <td
                           colSpan={7}
-                          className="px-4 py-4 text-[13px] dark:text-white/50 bg-black/5 dark:bg-white/[0.02] leading-[1.7] whitespace-normal"
+                          className="px-4 py-4 text-[13px] dark:text-white/50 bg-black/5 dark:bg-white/2 leading-[1.7] whitespace-normal"
                         >
                           <span className="font-bold dark:text-white/80">Incident detail: </span>
                           {r.desc}
