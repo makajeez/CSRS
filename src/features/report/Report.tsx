@@ -354,7 +354,7 @@ export default function Report(): JSX.Element {
                 setThreat(i);
                 setForm((prev) => ({ ...prev, threatCategory: i }));
               }}
-              className={`flex flex-col items-center gap-[5px] py-3 px-2 rounded-lg border transition-all duration-150 cursor-pointer text-center ${
+              className={`flex flex-col items-center gap-1.25 py-3 px-2 rounded-lg border transition-all duration-150 cursor-pointer text-center ${
                 threat === i
                   ? "border-black/90 bg-black/35 dark:border-red-500 dark:bg-red-500/6"
                   : "border-black/5 bg-black/20 dark:border-white/8 dark:bg-[#1a1a18] dark:hover:border-white/20"
@@ -382,7 +382,7 @@ export default function Report(): JSX.Element {
                 setSev(key);
                 setForm((prev) => ({ ...prev, severityLevel: key }));
               }}
-              className={`flex-1 py-[9px] rounded-lg border text-[11px] font-bold transition-all duration-150 cursor-pointer ${
+              className={`flex-1 py-2.25 rounded-lg border text-[11px] font-bold transition-all duration-150 cursor-pointer ${
                 sev === key ? selClass : "bg-transparent text-black dark:text-white/45 dark:border-white/8 border-black/20 dark:hover:border-white/20"
               }`}
             >
@@ -402,7 +402,7 @@ export default function Report(): JSX.Element {
         </Field>
         <button
           onClick={invokeGPS}
-          className="flex items-center gap-[5px] px-4 py-[9px] rounded-lg border bg-white/5 border-white/50 dark:border-white/12 dark:bg-[#1a1a18] text-[11px] font-bold dark:text-white/55 dark:hover:text-white/80 dark:hover:border-white/25 transition-all cursor-pointer whitespace-nowrap h-10"
+          className="flex items-center gap-1.25 px-4 py-2.25 rounded-lg border bg-white/5 border-white/50 dark:border-white/12 dark:bg-[#1a1a18] text-[11px] font-bold dark:text-white/55 dark:hover:text-white/80 dark:hover:border-white/25 transition-all cursor-pointer whitespace-nowrap h-10"
         >
          {!loading ? (
             <>
@@ -438,7 +438,7 @@ export default function Report(): JSX.Element {
               const now = new Date();
               setDateTime(now)
             }}
-            className="flex items-center gap-[5px] px-4 py-[9px] rounded-lg border bg-white/5 border-white/50 dark:border-white/12 dark:bg-[#1a1a18] text-[11px] font-bold dark:text-white/55 dark:hover:text-white/80 dark:hover:border-white/25 transition-all cursor-pointer whitespace-nowrap h-10"
+            className="flex items-center gap-1.25 px-4 py-2.25 rounded-lg border bg-white/5 border-white/50 dark:border-white/12 dark:bg-[#1a1a18] text-[11px] font-bold dark:text-white/55 dark:hover:text-white/80 dark:hover:border-white/25 transition-all cursor-pointer whitespace-nowrap h-10"
           >
           <TimerTwoToneIcon />
           Current Time
@@ -452,7 +452,7 @@ export default function Report(): JSX.Element {
         <CardLabel required>Incident description</CardLabel>
         <Field label="What happened? Be as specific as possible">
           <textarea
-            className={`${inputCls} min-h-[90px] resize-y leading-[1.6]`}
+            className={`${inputCls} min-h-22.5 resize-y leading-[1.6]`}
             placeholder="Describe what you saw — number of people involved, vehicles, weapons, direction of movement, any identifiable features..."
             value={form.description}
             onChange={setField("description")}
@@ -519,8 +519,8 @@ export default function Report(): JSX.Element {
       {toggleSettings.map(({ label, desc, val, toggle }, i) => (
         <div key={label} className={`flex items-center justify-between py-3 gap-4 ${i > 0 ? "border-t border-white/6" : ""}`}>
           <div>
-            <p className="text-[13px] font-bold text-black/60 dark:text-[#f5f4ef] mb-[2px]">{label}</p>
-            <p className="text-[11px] text-black/40 dark:text-white/35 leading-[1.5]">{desc}</p>
+            <p className="text-[13px] font-bold text-black/60 dark:text-[#f5f4ef] mb-0.5">{label}</p>
+            <p className="text-[11px] text-black/40 dark:text-white/35 leading-normal">{desc}</p>
           </div>
           <Toggle on={val} onToggle={toggle} />
         </div>
