@@ -16,10 +16,10 @@ import { PulsingDot } from '../shared/SharedUI';
 
 
 const STEPS = [
-  { num: "1", ml: "0px", mr: "150px" , Icon: PinDropTwoTone, title: "Pinpoint the location", desc: "Drop a precise pin or use GPS auto-detect. Your report is tagged to an exact coordinate grid for responder routing." },
-  { num: "2", ml: "50px", mr: "100px" ,Icon: GPPMaybeTwoTone, title: "Classify the threat", desc: "Choose from structured threat categories. Add media evidence — photos, audio, or short video clips." },
-  { num: "3", ml: "100px", mr: "50px" ,Icon: QuestionAnswerTwoTone, title: "Community corroboration", desc: "Nearby users verify or add details. Reports gain credibility scores — multiple confirmations trigger priority alerts." },
-  { num: "4", ml: "150px", mr: "0px" ,Icon: SendTimeExtensionTwoTone, title: "Dispatch & resolution", desc: "Authorities and security agencies receive structured incident data. Status is fed back to reporters in real-time." },
+  { num: "1", mlr: "sm:ml-0 sm:mr-45", Icon: PinDropTwoTone, title: "Pinpoint the location", desc: "Drop a precise pin or use GPS auto-detect. Your report is tagged to an exact coordinate grid for responder routing." },
+  { num: "2", mlr: "sm:ml-15 sm:mr-30", Icon: GPPMaybeTwoTone, title: "Classify the threat", desc: "Choose from structured threat categories. Add media evidence — photos, audio, or short video clips." },
+  { num: "3", mlr: "sm:ml-30 sm:mr-15", Icon: QuestionAnswerTwoTone, title: "Community corroboration", desc: "Nearby users verify or add details. Reports gain credibility scores — multiple confirmations trigger priority alerts." },
+  { num: "4", mlr: "sm:ml-45 sm:mr-0", Icon: SendTimeExtensionTwoTone, title: "Dispatch & resolution", desc: "Authorities and security agencies receive structured incident data. Status is fed back to reporters in real-time." },
 ];
 
 const THREAT_TYPES = [
@@ -85,9 +85,9 @@ function Home() {
           </div>
 
           <SectionLabel>How it works</SectionLabel>
-          <div className="flex flex-col gap-px rounded-tl-xl overflow-hidden mb-12">
-            {STEPS.map(({ num, mr, ml, Icon, title, desc }) => (
-              <div key={num} style={{marginLeft: ml, marginRight: mr }} className="bg-black/20 dark:bg-[#111110] dark:border-white/8 border-r border-t transition-colors duration-200 px-5 py-5 flex items-start gap-4">
+          <div className="flex flex-col gap-px rounded-xl sm:rounded-tl-xl overflow-hidden mb-12">
+            {STEPS.map(({ num, mlr, Icon, title, desc }) => (
+              <div key={num} className={`${mlr} ml-0 mr-0 bg-black/20 dark:bg-[#111110] dark:border-white/8 sm:border-r sm:border-t transition-colors duration-200 px-5 py-5 flex items-start gap-4`}>
                 <span className="font-mono-custom text-[15px] dark:text-white/50 min-w-7 mt-0.75">{num}</span>
                 <div className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 bg-black/20 dark:bg-red-500/10 dark:text-red-500`}>
                   <Icon />
