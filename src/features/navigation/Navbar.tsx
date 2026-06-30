@@ -3,6 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import  ThemeToggle  from '../shared/ThemeToggle';
 import Tooltip from '@mui/material/Tooltip';
 import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone'
+import SendTwoToneIcon from '@mui/icons-material/SendTwoTone'
 
 const CrowdMark = () => (
   <div className="relative w-8 h-8 dark:bg-red-500 bg-black rounded-md flex items-center justify-center text-white">
@@ -32,16 +33,18 @@ function Navbar() {
       location.pathname === '/report' ?
         <NavLink to="/" >
           <Tooltip title="Home">
-            <span  className="bg-black/20 dark:bg-red-500/20 dark:text-red-500 border dark:border-red-500/35 px-2 py-2 rounded-lg">
+            <span className="bg-black/20 dark:bg-red-500/20 dark:text-red-500 border dark:border-red-500/35 px-2 py-2 rounded-lg">
               <HomeTwoToneIcon />
             </span>
           </Tooltip>
         </NavLink>
       :
         <NavLink to="/report">
-          <span  className="font-mono-custom text-[10px] bg-black/20 dark:bg-red-500/20 dark:text-red-500 border dark:border-red-500/35 px-3 py-1 rounded-full tracking-[0.08em]">
-            SUBMIT REPORT
-          </span>
+          <Tooltip title='Send a Report'>
+            <span className="bg-black/20 dark:bg-red-500/20 dark:text-red-500 border dark:border-red-500/35 px-2 py-2 rounded-lg">
+              <SendTwoToneIcon />
+            </span>
+          </Tooltip>
         </NavLink>
     )}
     <ThemeToggle />
