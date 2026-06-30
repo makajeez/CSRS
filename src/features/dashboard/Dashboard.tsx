@@ -160,13 +160,13 @@ export default function CommandCenter() {
         <div className="border border-white/8 rounded-xl overflow-hidden">
           <table className="w-full border-collapse text-[13px]" style={{ tableLayout: "fixed" }}>
             <colgroup>
-              <col style={{ width: "11%" }} />
-              <col style={{ width: "17%" }} />
-              <col style={{ width: "14%" }} />
-              <col style={{ width: "10%" }} />
-              <col style={{ width: "20%" }} />
-              <col style={{ width: "10%" }} />
-              <col style={{ width: "18%" }} />
+              <col className="hidden md:table-cell md:w-[11%]" />
+              <col className="w-[18%] md:w-[17%]" />
+              <col className="w-[22%] md:w-[14%]" />
+              <col className="w-[15%] md:w-[10%]" />
+              <col className="w-[30%] md:w-[20%]" />
+              <col className="hidden md:table-cell md:w-[10%]" />
+              <col className="w-[15%] md:w-[18%]" />
             </colgroup>
             <thead>
               <tr className="bg-black/5 dark:bg-white/4 border-b border-white/8">
