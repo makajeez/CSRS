@@ -171,7 +171,7 @@ export default function CommandCenter() {
             <thead>
               <tr className="bg-black/5 dark:bg-white/4 border-b border-white/8">
                 {["Ref", "Category", "Location", "Severity", "Nearest outpost", "Status", "Actions"].map((h) => (
-                  <th key={h} className="px-4 py-3 text-left font-mono text-[10px] tracking-widest uppercase text-black/40 dark:text-white/30">
+                  <th key={h} className={`px-4 py-3 text-left font-mono text-[10px] tracking-widest uppercase text-black/40 dark:text-white/30 ${(h === "Ref" || h === "Status") ? "hidden md:table-cell" : ""}`}>
                     {h}
                   </th>
                 ))}
@@ -193,7 +193,7 @@ export default function CommandCenter() {
                       className="border-b border-white/6 hover:bg-black/5 dark:hover:bg-white/3 cursor-pointer transition-colors"
                     >
                       {/* Ref */}
-                      <td className="px-4 py-3 font-mono text-[11px] text-black/40 dark:text-white/35 overflow-hidden text-ellipsis whitespace-nowrap">
+                      <td className="hidden md:table-cell px-4 py-3 font-mono text-[11px] text-black/40 dark:text-white/35 overflow-hidden text-ellipsis whitespace-nowrap">
                         {r.ref}
                       </td>
 
@@ -220,7 +220,7 @@ export default function CommandCenter() {
                       </td>
 
                       {/* Status */}
-                      <td className="px-4 py-3">
+                      <td className="hidden md:table-cell px-4 py-3">
                         <Badge label={r.status} cls={STATUS_CLASSES[r.status]} />
                       </td>
 
