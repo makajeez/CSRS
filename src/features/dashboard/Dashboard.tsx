@@ -161,17 +161,17 @@ export default function CommandCenter() {
           <table className="w-full border-collapse text-[13px]" style={{ tableLayout: "fixed" }}>
             <colgroup>
               <col className="hidden md:table-cell md:w-[11%]" />
-              <col className="w-[18%] md:w-[17%]" />
-              <col className="w-[22%] md:w-[14%]" />
+              <col className="w-[23%] md:w-[17%]" />
+              <col className="w-[27%] md:w-[14%]" />
               <col className="w-[15%] md:w-[10%]" />
-              <col className="w-[30%] md:w-[20%]" />
+              <col className="w-[35%] md:w-[20%]" />
               <col className="hidden md:table-cell md:w-[10%]" />
-              <col className="w-[15%] md:w-[18%]" />
+              <col className="hidden md:table-cell md:w-[18%]" />
             </colgroup>
             <thead>
               <tr className="bg-black/5 dark:bg-white/4 border-b border-white/8">
                 {["Ref", "Category", "Location", "Severity", "Nearest outpost", "Status", "Actions"].map((h) => (
-                  <th key={h} className={`px-1 py-3 text-left font-mono text-[10px] tracking-widest uppercase text-black/40 dark:text-white/30 ${(h === "Ref" || h === "Status") ? "hidden md:table-cell" : ""} ${ h === "Actions" ? "overflow-hidden text-ellipsis sm:table-cell" : ""}`}>
+                  <th key={h} className={`px-1 py-3 text-left font-mono text-[10px] tracking-widest uppercase text-black/40 dark:text-white/30 ${(h === "Ref" || h === "Status" || h === "Actions") ? "hidden md:table-cell" : ""}`}>
                     {h}
                   </th>
                 ))}
@@ -225,7 +225,7 @@ export default function CommandCenter() {
                       </td>
 
                       {/* Actions */}
-                      <td className="px-1 py-3" onClick={(e) => e.stopPropagation()}>
+                      <td className="hidden md:table-cell px-1 py-3" onClick={(e) => e.stopPropagation()}>
                         <div className="flex gap-1.5">
                           {r.status === "Pending" && (
                             <button
@@ -256,6 +256,7 @@ export default function CommandCenter() {
                         <td
                           colSpan={7}
                           className="px-4 py-4 text-[13px] dark:text-white/50 bg-black/5 dark:bg-white/2 leading-[1.7] whitespace-normal"
+                          onClick={(e) => e.stopPropagation()}
                         >
                           <span className="font-bold dark:text-white/80">Incident detail: </span>
                           {r.desc}
@@ -263,7 +264,7 @@ export default function CommandCenter() {
                             <span className="block mt-2 font-mono text-[11px] dark:text-white/25">
                               Reported at {r.time}
                             </span>
-                            <span className="sm:hidden flex gap-1">
+                            <span className="md:hidden flex gap-1">
                                {r.status === "Pending" && (
                                   <button
                                     onClick={() => updateStatus(r.ref, "Routed")}
