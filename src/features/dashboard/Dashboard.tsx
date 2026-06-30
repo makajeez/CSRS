@@ -162,9 +162,9 @@ export default function CommandCenter() {
             <colgroup>
               <col className="hidden md:table-cell md:w-[11%]" />
               <col className="w-[23%] md:w-[17%]" />
-              <col className="w-[27%] md:w-[14%]" />
-              <col className="w-[15%] md:w-[10%]" />
-              <col className="w-[35%] md:w-[20%]" />
+              <col className="w-[23%] md:w-[14%]" />
+              <col className="w-[24%] md:w-[10%]" />
+              <col className="w-[30%] md:w-[20%]" />
               <col className="hidden md:table-cell md:w-[10%]" />
               <col className="hidden md:table-cell md:w-[18%]" />
             </colgroup>
