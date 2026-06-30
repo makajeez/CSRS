@@ -157,21 +157,21 @@ export default function CommandCenter() {
         </div>
 
         {/* Table */}
-        <div className="border border-white/8 rounded-xl overflow-hidden">
-          <table className="w-full border-collapse text-[13px]" style={{ tableLayout: "fixed" }}>
+        <div className="border border-black/10 dark:border-white/8 rounded-xl overflow-hidden">
+          <table className="w-full border-collapse  text-[13px]" style={{ tableLayout: "fixed" }}>
             <colgroup>
               <col className="hidden md:table-cell md:w-[11%]" />
               <col className="w-[23%] md:w-[17%]" />
               <col className="w-[23%] md:w-[14%]" />
-              <col className="w-[24%] md:w-[10%]" />
-              <col className="w-[30%] md:w-[20%]" />
+              <col className="w-[24%] md:w-[20%]" />
+              <col className="w-[30%] md:w-[10%]" />
               <col className="hidden md:table-cell md:w-[10%]" />
               <col className="hidden md:table-cell md:w-[18%]" />
             </colgroup>
             <thead>
-              <tr className="bg-black/5 dark:bg-white/4 border-b border-white/8">
+              <tr className="bg-black/5 dark:bg-white/4 border-black/10 dark:border-white/8">
                 {["Ref", "Category", "Location", "Severity", "Nearest outpost", "Status", "Actions"].map((h) => (
-                  <th key={h} className={`px-1 py-3 text-left font-mono text-[10px] tracking-widest uppercase text-black/40 dark:text-white/30 ${(h === "Ref" || h === "Status" || h === "Actions") ? "hidden md:table-cell" : ""}`}>
+                  <th key={h} className={`border-r border-black/10 dark:border-white/8 px-1 py-3 text-center font-mono text-[10px] tracking-widest uppercase text-black/40 dark:text-white/30 ${(h === "Ref" || h === "Status" || h === "Actions") ? "hidden md:table-cell" : ""}`}>
                     {h}
                   </th>
                 ))}
@@ -180,7 +180,7 @@ export default function CommandCenter() {
             <tbody>
               {filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="text-center py-10 text-[13px] dark:text-white/30">
+                  <td colSpan={7} className="btext-center py-10 text-[13px] dark:text-white/30">
                     No reports match the current filters.
                   </td>
                 </tr>
@@ -190,7 +190,7 @@ export default function CommandCenter() {
                     <tr
                       key={r.ref}
                       onClick={() => toggleExpand(r.ref)}
-                      className="border-b border-white/6 hover:bg-black/5 dark:hover:bg-white/3 cursor-pointer transition-colors"
+                      className="text-center border-b border-black/8 dark:border-white/6 hover:bg-black/5 dark:hover:bg-white/3 cursor-pointer transition-colors"
                     >
                       {/* Ref */}
                       <td className="hidden md:table-cell px-1 py-3 font-mono text-[11px] text-black/40 dark:text-white/35 overflow-hidden text-ellipsis whitespace-nowrap">
