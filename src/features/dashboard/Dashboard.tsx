@@ -171,7 +171,7 @@ export default function CommandCenter() {
             <thead>
               <tr className="bg-black/5 dark:bg-white/4 border-b border-white/8">
                 {["Ref", "Category", "Location", "Severity", "Nearest outpost", "Status", "Actions"].map((h) => (
-                  <th key={h} className={`px-4 py-3 text-left font-mono text-[10px] tracking-widest uppercase text-black/40 dark:text-white/30 ${(h === "Ref" || h === "Status") ? "hidden md:table-cell" : ""}`}>
+                  <th key={h} className={`px-1 py-3 text-left font-mono text-[10px] tracking-widest uppercase text-black/40 dark:text-white/30 ${(h === "Ref" || h === "Status") ? "hidden md:table-cell" : ""} ${ h === "Actions" ? "overflow-hidden text-ellipsis sm:table-cell" : ""}`}>
                     {h}
                   </th>
                 ))}
@@ -193,39 +193,39 @@ export default function CommandCenter() {
                       className="border-b border-white/6 hover:bg-black/5 dark:hover:bg-white/3 cursor-pointer transition-colors"
                     >
                       {/* Ref */}
-                      <td className="hidden md:table-cell px-4 py-3 font-mono text-[11px] text-black/40 dark:text-white/35 overflow-hidden text-ellipsis whitespace-nowrap">
+                      <td className="hidden md:table-cell px-1 py-3 font-mono text-[11px] text-black/40 dark:text-white/35 overflow-hidden text-ellipsis whitespace-nowrap">
                         {r.ref}
                       </td>
 
                       {/* Category */}
-                      <td className="px-4 py-3 font-bold overflow-hidden text-ellipsis whitespace-nowrap">
+                      <td className="px-1 py-3 font-bold overflow-hidden text-ellipsis whitespace-nowrap">
                         {r.cat}
                       </td>
 
                       {/* Location */}
-                      <td className="px-4 py-3 overflow-hidden">
+                      <td className="px-1 py-3 overflow-hidden">
                         <div className="text-[12px] font-bold truncate">{r.lga}, {r.state}</div>
                         <div className="text-[11px] dark:text-white/35 truncate">{r.address}</div>
                       </td>
 
                       {/* Severity */}
-                      <td className="px-4 py-3">
+                      <td className="px-1 py-3">
                         <Badge label={r.sev} cls={SEV_CLASSES[r.sev]} />
                       </td>
 
                       {/* Outpost */}
-                      <td className="px-4 py-3 overflow-hidden">
+                      <td className="px-1 py-3 overflow-hidden">
                         <div className="text-[12px] font-bold truncate">{r.outpost}</div>
                         <div className="text-[11px] dark:text-white/35">{r.outpostDist} away</div>
                       </td>
 
                       {/* Status */}
-                      <td className="hidden md:table-cell px-4 py-3">
+                      <td className="hidden md:table-cell px-1 py-3">
                         <Badge label={r.status} cls={STATUS_CLASSES[r.status]} />
                       </td>
 
                       {/* Actions */}
-                      <td className="px-4 py-3" onClick={(e) => e.stopPropagation()}>
+                      <td className="px-1 py-3" onClick={(e) => e.stopPropagation()}>
                         <div className="flex gap-1.5">
                           {r.status === "Pending" && (
                             <button
