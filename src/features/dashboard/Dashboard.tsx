@@ -1,3 +1,4 @@
+import { getStates } from "ng-states-core";
 import { useState, useMemo } from "react";
 
 
@@ -70,7 +71,7 @@ export default function CommandCenter() {
   const [stateFilter, setStateFilter]   = useState("");
 
   const states = useMemo(
-    () => [...new Set(INITIAL_REPORTS.map((r) => r.state))].sort(),
+    () => getStates().map((r) => r.state).sort(),
     []
   );
 
