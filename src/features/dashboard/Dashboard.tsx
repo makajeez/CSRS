@@ -180,7 +180,7 @@ export default function CommandCenter() {
             <tbody>
               {filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="btext-center py-10 text-[13px] dark:text-white/30">
+                  <td colSpan={7} className="text-center py-10 text-[13px] dark:text-white/30">
                     No reports match the current filters.
                   </td>
                 </tr>
