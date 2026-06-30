@@ -259,8 +259,31 @@ export default function CommandCenter() {
                         >
                           <span className="font-bold dark:text-white/80">Incident detail: </span>
                           {r.desc}
-                          <span className="block mt-2 font-mono text-[11px] dark:text-white/25">
-                            Reported at {r.time}
+                          <span >
+                            <span className="block mt-2 font-mono text-[11px] dark:text-white/25">
+                              Reported at {r.time}
+                            </span>
+                            <span className="sm:hidden flex gap-1">
+                               {r.status === "Pending" && (
+                                  <button
+                                    onClick={() => updateStatus(r.ref, "Routed")}
+                                    className="text-[11px] px-2.5 py-1 rounded-lg border border-blue-500/30 text-blue-600 dark:text-blue-400 hover:bg-blue-500/10 transition-colors cursor-pointer"
+                                  >
+                                    Route
+                                  </button>
+                                )}
+                                {r.status !== "Resolved" && (
+                                  <button
+                                    onClick={() => updateStatus(r.ref, "Resolved")}
+                                    className="text-[11px] px-2.5 py-1 rounded-lg border border-teal-500/30 text-teal-600 dark:text-teal-400 hover:bg-teal-500/10 transition-colors cursor-pointer"
+                                  >
+                                    Resolve
+                                  </button>
+                                )}
+                                {r.status === "Resolved" && (
+                                  <span className="text-[11px] text-teal-500">Done</span>
+                                )}
+                            </span>
                           </span>
                         </td>
                       </tr>
