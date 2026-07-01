@@ -103,7 +103,7 @@ export default function CommandCenter() {
     setExpanded((prev) => (prev === ref ? null : ref));
 
   const selectCls =
-    "text-[13px] h-[34px] px-3 rounded-lg border border-black/10 dark:border-white/10 bg-black/5 dark:bg-[#1a1a18] dark:text-[#f5f4ef] outline-none focus:border-black/25 transition-colors cursor-pointer";
+    "text-[13px] h-[34px] px-3 rounded-lg border border-black/10 bg-black/5 dark:border-white/5 dark:bg-[#1a1a18]/80 dark:text-white/15 outline-none focus:border-black/25 transition-colors cursor-pointer";
 
   return (
     <div className="font-syne dark:text-[#f5f4ef] min-h-screen">
